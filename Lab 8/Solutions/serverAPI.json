@@ -1,0 +1,97 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "This is a simple API",
+    "version": "1.0.0",
+    "title": "ChatApp Server API"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000/"
+    }
+  ],
+  "paths": {
+    "/get/{username}": {
+      "get": {
+        "tags": [
+          "Message"
+        ],
+        "summary": "receiving messages for a specific user",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "Username of chatapp user",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "messages": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "There's no messages for specific user"
+          }
+        }
+      }
+    },
+    "/send/{receiver_username}/{message}": {
+      "post": {
+        "tags": [
+          "Message"
+        ],
+        "summary": "sending a message to a specific user",
+        "parameters": [
+          {
+            "name": "receiver_username",
+            "in": "path",
+            "description": "Username of message receiver",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "message",
+            "in": "path",
+            "description": "Message to send",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "success"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
